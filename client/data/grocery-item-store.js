@@ -3,6 +3,7 @@ import { endpoint as API_ENDPOINT } from '../utils/api';
 
 /**
  * A class for keeping track of grocery item state
+ * @typedef {Object} GroceryItem
  * @public
  */
 export default class GroceryItemStore {
@@ -75,7 +76,7 @@ export default class GroceryItemStore {
    * and update existing ones to reflect any changes in properties
    *  
    * @private
-   * @param {any} data array of grocery items to push into the store
+   * @param {GroceryItem[]} data array of grocery items to push into the store
    * @return {void}
    */
   _updateItems(data) {
@@ -122,7 +123,7 @@ export default class GroceryItemStore {
     return fetch(`${API_ENDPOINT}api/grocery/categories`)
       .then((resp) => resp.json())
       .then((jsonData) => {
-        let categories = jsonData.data.map(item => item.category);
+        let categories = jsonData.data.map(/** @param {{category: string}} item */ item => item.category);
         this._categories = categories;
         this._onCategoriesUpdated();
         return this.categories;

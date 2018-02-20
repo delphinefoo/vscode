@@ -1,15 +1,21 @@
 /**
+ * @typedef {(items: ArrayLike<any>) => void} Listener
+ */
+
+/**
  * A class for things we can register listeners to and fire events
  * @author Mike North
  * @public
  */
 export default class ListenerSupport {
   constructor() {
+    /** @type {Listener[]} */
     this._listeners = [];
   }
   
   /**
    * Register a listener
+   * @param {Listener} listener
    * @return {void}
    */
   registerListener(listener) {
@@ -18,6 +24,7 @@ export default class ListenerSupport {
 
   /**
    * Un-register a listener
+   * @param {Listener} listener
    * @return {void}
    */
   unregisterListener(listener) {
@@ -27,6 +34,7 @@ export default class ListenerSupport {
 
   /**
    * Fire an event, synchronously invoking all listener callbacks that have been registered
+   * @param  {{data: ArrayLike<any>}} payload
    * @see #register 
    */
   fire(payload) {
